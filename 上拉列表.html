@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            list-style: none;
+        }
+
+        html,
+        body {
+
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        header {
+            width: 100%;
+            height: 40px;
+            font-size: 20px;
+            text-align: center;
+            line-height: 40px;
+            background: green;
+            
+        }
+
+        div {
+            position: absolute;
+            left: 0;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        div #box {
+            padding: 0;
+        }
+
+        div #box li {
+            height: 30px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <header>上拉列表</header>
+    <div>
+        <ul id="box">
+
+        </ul>
+    </div>
+
+</body>
+
+</html>
+<script>
+    document.addEventListener("touchstart", function (ev) {
+        ev.preventDefault();
+    })
+    window.onload = function () {
+        var oul = document.getElementById("box");
+        var inner = "";
+        var py = 0;
+        var now=0;
+        var sty=0;
+        for (var i = 0; i < 100; i++) {
+            inner += "<li>这是第" + i + "个li</li>"
+        }
+        oul.innerHTML = inner;
+
+
+        oul.addEventListener("touchstart", function (ev) {
+            py = ev.changedTouches[0].pageY;
+           
+        });
+        oul.addEventListener("touchmove", function (ev) {
+            py2 = ev.changedTouches[0].pageY;
+            disy = py2 - py+now;
+            oul.style.transition="0.5s";
+            oul.style.transform = "translateY(" + disy+ "px)"
+        });
+        oul.addEventListener("touchend", function (ev) {
+            now=disy;
+        });
+
+
+    }
+</script>
